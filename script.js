@@ -1,7 +1,9 @@
-/* =====================================
+/* ====================================================
    LiveLab 10 – GlowGuide Demo Script
    Focus: Advanced APIs + Error Handling
-===================================== */
+   Instructor is not coding but is primarily
+    explaining the code structure and best practices.
+======================================================== */
 
 // STEP 1: Select DOM Elements
 const button = document.getElementById("askBtn");
