@@ -6,12 +6,76 @@
    Customize them to match YOUR concept!
 ===================================== */
 
+@import url("https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&display=swap");
+
+:root {
+  --bg-top: #fff6df;
+  --bg-mid: #ffe7c2;
+  --bg-bottom: #ffd9b3;
+  --ink: #22242b;
+  --muted: #5f6270;
+  --surface: rgba(255, 255, 255, 0.88);
+  --surface-strong: #ffffff;
+  --line: rgba(46, 48, 58, 0.16);
+  --user-bubble: #1f7a8c;
+  --user-bubble-ink: #f6feff;
+  --ai-bubble: #ffe6a9;
+  --ai-bubble-ink: #2c2e36;
+  --accent: #f45d48;
+  --accent-hover: #d84631;
+}
+
+* {
+  box-sizing: border-box;
+}
+
 /* Reset and Base Styles */
 body {
   margin: 0;
-  font-family: Arial, sans-serif;
-  background: #f5f5f5;
-  color: #333;
+  font-family: "Space Grotesk", "Segoe UI", sans-serif;
+  background: linear-gradient(
+    160deg,
+    var(--bg-top) 0%,
+    var(--bg-mid) 45%,
+    var(--bg-bottom) 100%
+  );
+  color: var(--ink);
+  position: relative;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+body::before,
+body::after {
+  content: "";
+  position: fixed;
+  border-radius: 50%;
+  z-index: -1;
+  filter: blur(2px);
+}
+
+body::before {
+  width: 360px;
+  height: 360px;
+  top: -120px;
+  right: -90px;
+  background: radial-gradient(
+    circle at center,
+    rgba(31, 122, 140, 0.28),
+    transparent 70%
+  );
+}
+
+body::after {
+  width: 300px;
+  height: 300px;
+  bottom: -110px;
+  left: -80px;
+  background: radial-gradient(
+    circle at center,
+    rgba(244, 93, 72, 0.22),
+    transparent 70%
+  );
 }
 
 /* Navigation Bar */
@@ -20,18 +84,20 @@ nav {
   justify-content: space-between;
   align-items: center;
   padding: 1rem 2rem;
-  background: white;
-  border-bottom: 1px solid #ddd;
+  background: rgba(255, 255, 255, 0.75);
+  backdrop-filter: blur(6px);
+  border-bottom: 1px solid var(--line);
 }
 
 nav h2 {
   margin: 0;
   font-size: 1.5rem;
+  letter-spacing: 0.02em;
 }
 
 nav span {
   font-size: 0.9rem;
-  color: #666;
+  color: var(--muted);
 }
 
 /* Main Content Area */
@@ -43,71 +109,155 @@ nav span {
   align-items: center;
   text-align: center;
   padding: 2rem;
+  animation: fade-up 500ms ease-out;
 }
 
 .hero h1 {
-  font-size: 2.5rem;
+  font-size: clamp(2rem, 4vw, 3rem);
   margin-bottom: 1rem;
+  max-width: 18ch;
+  line-height: 1.1;
 }
 
 .hero p {
   font-size: 1.1rem;
   max-width: 600px;
   margin-bottom: 2rem;
-  color: #666;
+  color: var(--muted);
 }
 
 /* AI Interaction Card */
 .ai-card {
-  background: white;
+  background: var(--surface);
   padding: 2rem;
-  border-radius: 8px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-  max-width: 600px;
+  border-radius: 18px;
+  border: 1px solid var(--line);
+  box-shadow: 0 18px 40px rgba(48, 35, 23, 0.16);
+  max-width: 720px;
   width: 100%;
+  text-align: left;
+}
+
+.input-row {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 0.75rem;
 }
 
 /* Input Field */
 input {
   width: 100%;
-  padding: 0.8rem;
-  margin-bottom: 1rem;
-  border-radius: 4px;
-  border: 1px solid #ccc;
+  padding: 0.9rem 1rem;
+  border-radius: 12px;
+  border: 1px solid var(--line);
   font-size: 1rem;
-  box-sizing: border-box;
+  background: var(--surface-strong);
 }
 
 input:focus {
   outline: none;
-  border-color: #007bff;
+  border-color: #1f7a8c;
+  box-shadow: 0 0 0 3px rgba(31, 122, 140, 0.2);
 }
 
 /* Submit Button */
 button {
-  padding: 0.8rem 1.5rem;
-  border-radius: 4px;
+  padding: 0.8rem 1.2rem;
+  border-radius: 12px;
   border: none;
-  background: #007bff;
+  background: var(--accent);
   color: white;
-  font-size: 1rem;
+  font-size: 0.95rem;
+  font-weight: 700;
+  letter-spacing: 0.01em;
   cursor: pointer;
-  transition: background 0.3s;
+  transition:
+    transform 200ms ease,
+    background 200ms ease;
 }
 
 button:hover {
-  background: #0056b3;
+  background: var(--accent-hover);
+  transform: translateY(-1px);
+}
+
+.helper-text {
+  margin: 0.85rem 0 0;
+  color: var(--muted);
+  font-size: 0.9rem;
 }
 
 /* Response Display Area */
 #response {
   margin-top: 1.5rem;
   padding: 1rem;
-  background: #f9f9f9;
-  border-radius: 4px;
-  min-height: 60px;
+  background: rgba(255, 255, 255, 0.66);
+  border-radius: 14px;
+  border: 1px solid var(--line);
+  min-height: 240px;
+  max-height: 360px;
+  overflow-y: auto;
   text-align: left;
   line-height: 1.6;
+}
+
+.message {
+  max-width: 85%;
+  margin: 0.75rem 0;
+  padding: 0.75rem 0.95rem;
+  border-radius: 14px;
+  animation: pop-in 220ms ease-out;
+}
+
+.message strong {
+  font-size: 0.78rem;
+  display: block;
+  opacity: 0.8;
+  margin-bottom: 0.15rem;
+  letter-spacing: 0.05em;
+}
+
+.message p {
+  margin: 0;
+}
+
+.message.user {
+  margin-left: auto;
+  background: var(--user-bubble);
+  color: var(--user-bubble-ink);
+  border-bottom-right-radius: 6px;
+}
+
+.message.user strong,
+.message.user p {
+  color: #ffffff;
+  opacity: 1;
+}
+
+.message.assistant {
+  margin-right: auto;
+  background: var(--ai-bubble);
+  color: var(--ai-bubble-ink);
+  border-bottom-left-radius: 6px;
+}
+
+.message.notice {
+  max-width: 100%;
+  margin: 0;
+  background: #fff5f5;
+  border: 1px solid #f2b9b9;
+  color: #7b2f2f;
+}
+
+.clear-btn {
+  margin-top: 0.8rem;
+  background: transparent;
+  color: var(--ink);
+  border: 1px solid var(--line);
+}
+
+.clear-btn:hover {
+  background: rgba(255, 255, 255, 0.6);
 }
 
 /* Footer */
@@ -115,7 +265,59 @@ footer {
   text-align: center;
   padding: 2rem;
   font-size: 0.9rem;
-  color: #999;
+  color: #5f6270;
+}
+
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes pop-in {
+  from {
+    opacity: 0;
+    transform: translateY(4px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@media (max-width: 720px) {
+  nav {
+    padding: 0.9rem 1rem;
+  }
+
+  nav h2 {
+    font-size: 1.1rem;
+  }
+
+  nav span {
+    font-size: 0.78rem;
+  }
+
+  .hero {
+    padding: 1rem;
+  }
+
+  .ai-card {
+    padding: 1rem;
+  }
+
+  .input-row {
+    grid-template-columns: 1fr;
+  }
+
+  #response {
+    min-height: 200px;
+  }
 }
 
 /* =====================================

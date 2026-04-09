@@ -21,9 +21,7 @@
 
     <section class="hero">
       <h1>Your AI-Powered Recommendation Engine</h1>
-      <p>
-        Ask a question and receive personalized recommendations powered by AI.
-      </p>
+      <p>Ask a style question and get a trend-aware outfit recommendation.</p>
 
       <!-- =============================
          REQUIRED ELEMENTS (Don't remove these IDs!)
@@ -33,9 +31,21 @@
     ============================== -->
 
       <div class="ai-card">
-        <input type="text" id="userInput" placeholder="Ask me anything..." />
-        <button id="askBtn">Get Recommendation</button>
-        <div id="response">AI response will appear here...</div>
+        <div class="input-row">
+          <input
+            type="text"
+            id="userInput"
+            placeholder="Ex: Suggest an outfit for a rainy spring concert"
+          />
+          <button id="askBtn">Get Look</button>
+        </div>
+        <p class="helper-text">
+          Try: "Brunch outfit under $100" or "Streetwear for cool weather"
+        </p>
+        <div id="response" aria-live="polite"></div>
+        <button id="clearBtn" class="clear-btn" type="button">
+          Clear Chat
+        </button>
       </div>
     </section>
 
